@@ -1,17 +1,69 @@
 #![cfg_attr(
-    all(not(debug_assertions), target_os = "windows"),
-    windows_subsystem = "windows"
+  all(not(debug_assertions), target_os = "windows"),
+  windows_subsystem = "windows"
 )]
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
+use local_ip_address::local_ip;
+use std::{sync::Arc};
+use tokio::net::UdpSocket;
+use futures::lock::Mutex;
+use tauri::{State, Manager, Window};
+use state::{AppState, 
+  update_is_connected, 
+  update_server_ip, 
+  update_self_ip, 
+  update_session_id, 
+  update_forwarding_id, 
+  add_alert
+};
+use comm::{receive_data};
+
+mod comm;
+mod utilities;
+mod state;
+
 #[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
+async fn initialize_state(window: Window, state: State<'_, Arc<Mutex<AppState>>>) -> Result<(), ()> {
+  let inner_state = Arc::clone(&state);
+  window.emit_all("state", &*(inner_state.lock().await));
+  return Ok(());
 }
 
-fn main() {
-    tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+#[tokio::main]
+async fn main() {
+  let socket = UdpSocket::bind("0.0.0.0:0").await.expect("Couldn't find a free port");
+  let port = socket.local_addr().unwrap().port();
+
+  tauri::Builder::default()
+  .setup( move |app| {
+    app.manage(Arc::new(Mutex::new(AppState {
+      selfIp: match local_ip() {
+        Ok(ip) => ip.to_string(),
+        Err(_err) => "No network".into()
+      },
+      selfPort: port,
+      sessionId: "None".into(),
+      forwardingId: "None".into(), 
+      serverIp: "-".into(), 
+      isConnected: false, 
+      alerts: Vec::new()
+    })));
+    let inner_state = Arc::clone(&app.state::<Arc<Mutex<AppState>>>());
+    let state = inner_state.try_lock();
+    app.manage(socket);
+    app.manage(Arc::new(Mutex::new(vec![0_u8;512])));
+    Ok(())
+  })
+  .invoke_handler(tauri::generate_handler![
+    initialize_state, 
+    update_is_connected, 
+    update_server_ip,
+    update_self_ip,
+    update_session_id,
+    update_forwarding_id,
+    add_alert,  
+    receive_data,
+  ])
+  .run(tauri::generate_context!())
+  .expect("error while running tauri application");
 }
