@@ -4,7 +4,7 @@
 )]
 
 use local_ip_address::local_ip;
-use std::{sync::Arc, time::Duration};
+use std::{collections::HashMap, sync::Arc, time::Duration};
 use tokio::net::UdpSocket;
 use futures::lock::Mutex;
 use tauri::{State, Manager, Window, window, WindowBuilder};
@@ -14,16 +14,19 @@ use state::{AppState,
   update_self_ip, 
   update_session_id, 
   update_forwarding_id, 
-  add_alert
+  add_alert,
+  update_sequences,
+  update_calibrations
 };
-use comm::receive_data;
 
-mod comm;
+use crate::state::{update_feedsystem, get_feedsystem, update_configs, update_active_config};
+
 mod utilities;
 mod state;
 
 #[tauri::command]
 async fn initialize_state(window: Window, state: State<'_, Arc<Mutex<AppState>>>) -> Result<(), ()> {
+  println!("initializing state!");
   let inner_state = Arc::clone(&state);
   window.emit_all("state", &*(inner_state.lock().await));
   return Ok(());
@@ -47,7 +50,11 @@ async fn main() {
       serverIp: "-".into(), 
       isConnected: false, 
       alerts: Vec::new(),
-      feedsystem: "Feedsystem1".into()
+      feedsystem: "Feedsystem1".into(),
+      configs: Vec::new(),
+      activeConfig: "".into(),
+      sequences: Vec::new(),
+      calibrations: HashMap::new()
     })));
     // let inner_state = Arc::clone(&app.state::<Arc<Mutex<AppState>>>());
     // let state = inner_state.try_lock();
@@ -63,7 +70,12 @@ async fn main() {
     update_session_id,
     update_forwarding_id,
     add_alert,
-    receive_data
+    update_feedsystem,
+    get_feedsystem,
+    update_configs,
+    update_active_config,
+    update_sequences,
+    update_calibrations
   ])
   .run(tauri::generate_context!())
   .expect("error while running tauri application");

@@ -10,6 +10,8 @@ async function createSystemWindow() {
     fullscreen: false,
     title: 'System',
     decorations: false,
+    width: 1105,
+    height: 725,
   })
 }
 
@@ -32,6 +34,17 @@ async function createValvesWindow() {
     decorations: false,
     height: 660,
     width: 540,
+  })
+}
+
+async function createPlotterWindow() {
+  const webview = new WebviewWindow('plotter', {
+    url: 'plotter.html',
+    fullscreen: false,
+    title: 'Plotter',
+    decorations: false,
+    height: 600,
+    width: 960,
   })
 }
 
@@ -88,7 +101,7 @@ const MenuBar: Component = (props) => {
           <div class="dropdown-item">
             Feedsystem
           </div>
-          <div class="dropdown-item">
+          <div class="dropdown-item" onClick={() => createPlotterWindow()}>
             Plotter
           </div>
           <div class="dropdown-item">

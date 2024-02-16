@@ -221,6 +221,8 @@
 }
 .system-main-view {
   margin-top: 20px;
+  overflow-y: hidden;
+  max-height: 100%;
 }
 
 /*
@@ -300,7 +302,7 @@ Feedsystem select
 .select-feedsystem-body {
   flex: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: #333333;
   border-style: solid;
   border-color: #212121;
@@ -350,7 +352,19 @@ Feedsystem select
   margin: 5px;
   font-family: 'Rubik';
 }
-
+.submit-feedsystem-button {
+  height: 30px;
+  background-color: #015878;
+  border-radius: 5px;
+  border: none;
+  margin: 10px;
+  justify-self: center;
+  font-family: 'Rubik';
+  color: #f0f0f0;
+}
+.submit-feedsystem-button:hover {
+  background-color: #00425a;
+}
 /*
 Sensors and Valves
 */
@@ -404,11 +418,11 @@ Sensors
 }
 .sensor-row {
   display: flex;
-  padding-top: 10px;
+  padding-top: 5px;
   border-bottom: #737373;
   border-bottom-style: solid;
   border-bottom-width: 2px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 .toggle-view-button {
   height: 30px;
@@ -446,6 +460,7 @@ Sensors
   border-radius: 5px;
   border-color: #212121;
   margin: 20px;
+  margin-bottom: 0px;
   padding: 5px;
   /* background-color: #333333; */
   display: flex;
@@ -491,11 +506,11 @@ Sensors
 }
 .valve-row {
   display: flex;
-  padding-top: 10px;
+  /* padding-top: 5px; */
   border-bottom: #737373;
   border-bottom-style: solid;
-  border-bottom-width: 2px;
-  padding-bottom: 10px;
+  border-bottom-width: 1px;
+  /* padding-bottom: 5px; */
   align-items: center;
 }
 .valve-button {
@@ -506,13 +521,326 @@ Sensors
   border-color: #212121; 
   border-width: 3px; 
   background-color: #22873D; 
-  margin-left: 10px;
-  margin-right: 10px; 
-  height: 50px;
+  margin-left: 5px;
+  margin-right: 5px; 
+  height: 25px;
   color: white; 
   font-family: 'Rubik';
   align-items: center;
 }
 .valve-button:hover {
   border-color: #737373;
+}
+
+/** Config **/
+
+.config-view {
+  height: 100%;
+  display: flex; 
+  flex-direction: column;
+
+}
+.new-config-section {
+  margin: 20px;
+  background-color: #333333;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #212121;
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+.system-config-above-section {
+  margin: 20px;
+  background-color: #333333;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #212121;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  height: 120px;
+}
+
+.horizontal-line {
+  width: 100%;
+  border-bottom: 2px solid #737373;
+}
+
+.existing-configs-sections {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  /* border: 2px solid black; */
+}
+
+.existing-config-row {
+  font-family: 'Rubik';
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* border: 2px solid red; */
+}
+
+.existing-config-row:hover {
+  background-color: #737373;
+}
+
+.existing-config-row-subheadings {
+  font-weight: 900;
+}
+
+.refresh-button {
+  height: 20px;
+  background-color: #015878;
+  border-radius: 5px;
+  border: none;
+  justify-self: center;
+  font-family: 'Rubik';
+  color: #f0f0f0;
+}
+
+.refresh-button:hover {
+  background-color: #00425a;
+}
+
+.existing-config-edit-btns {
+  display: none;
+  height: 30px;
+  border: 2px solid #333333;
+  /* border: 2px solid #212121; */
+  color: white;
+  border-radius: 5px;
+  font-family: 'Rubik';
+  background-color: #737373;
+}
+
+.add-config-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-config-setup {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  /* width: 50%; */
+  /* border: 2px solid red; */
+}
+
+.add-config-input {
+  height: 20px;
+  border: 3px solid #212121;
+  border-radius: 5px;
+  background-color: #333333;
+  font-family: 'Rubik';
+  color: white;
+}
+
+.add-config-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  /* border: 2px solid red; */
+  /* width: 50%; */
+}
+
+.add-config-btn {
+  height: 30px;
+  border: 2px solid #212121;
+  color: white;
+  border-radius: 5px;
+  font-family: 'Rubik';
+  background-color: #737373;
+}
+
+.add-config-configurations{
+  margin-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  /* border: 2px solid red; */
+}
+
+.add-config-styling {
+  background-color: #737373;
+  border: 3px solid #212121;
+  border-radius: 5px;
+  font-family: 'Rubik';
+  width: 20%;
+}
+
+.add-config-styling::placeholder {
+  color: black;
+}
+
+.edit-section {
+  display: none;
+}
+
+/* .edit {
+  display: none;
+} */
+
+.editing-configs-section {
+  flex-direction: row;
+}
+
+.editing-vertical-line {
+  /* height: 100%; */
+  border-left: 5px solid #737373;
+  /* height: 400px; */
+}
+
+.existing-data {
+  display: none;
+  flex-direction: column;
+  /* justify-content: space-between;
+  flex-wrap: wrap; */
+  /* width: 50%; */
+  /* background-color: red; */
+}
+
+.data {
+  display: flex;
+  /* width: 100%; */
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.data-child {
+  flex-basis: 20%;
+}
+
+
+
+
+/** Sequences **/
+.system-sequences-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.sequences-list-view {
+  background-color: #333333;
+  border-color: #212121;
+  border-style: solid;
+  border-width: 2px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 10px;
+}
+.sequences-editor {
+  background-color: #333333;
+  border-color: #212121;
+  border-style: solid;
+  border-width: 2px;
+  flex: 1;
+  margin: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.code-editor {
+  border-color: #212121;
+  border-style: solid;
+  border-width: 2px;
+  overflow-y: auto;
+  background-color: #282C34;
+}
+.sequence-display-item {
+  padding: 5px;
+}
+.sequence-display-item:hover {
+  background-color: #737373;
+}
+.sequence-config-dropdown{
+  height: 30px;
+  width: 100px;
+  background-color: #3C3F41;
+  color: white;
+  border-radius: 5px;
+  border-color: #212121!important;
+  border-width: 2px;
+  padding: 5px;
+  padding-right: 10px;
+  margin: 5px;
+  font-family: 'Rubik';
+}
+.submit-sequence-button {
+  height: 30px;
+  background-color: #015878;
+  border-radius: 5px;
+  border: none;
+  justify-self: center;
+  font-family: 'Rubik';
+  color: #f0f0f0;
+}
+
+/** Plotter **/
+
+.plotter-view-section {
+  margin: 20px;
+  background-color: #333333;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #212121;
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  /* grid-template-columns: repeat(3, 1fr); */
+  gap: 10px;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+.plotter-view-section::-webkit-scrollbar {
+  width: 18px;
+}
+.plotter-view-section::-webkit-scrollbar-thumb {
+  border-right-style: solid;
+  border-right-color: #212121;
+  border-right-width: 8px;
+  background-color: #333333;
+}
+.chart-tile {
+  padding: '10px';
+  margin: '5px';
+  border-style: 'solid';
+  border-width: 1px;
+  border-color: #5d5d5d;
+}
+.chart-reset-button {
+  height: 18px;
+  background-color: #015878;
+  border-radius: 5px;
+  border: none;
+  justify-self: center;
+  font-family: 'Rubik';
+  color: #f0f0f0;
+  position: relative;
+  float: right;
+  font-size: 12px;
+
+}
+.chart-reset-button:hover {
+  background-color: #00425a;
 }
