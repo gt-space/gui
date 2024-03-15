@@ -113,12 +113,11 @@ pub async fn update_calibrations(window: Window, value: HashMap<String, f64>, st
 pub struct Mapping {
   pub text_id: String,
   pub board_id: String,
-  pub channel_type: String,
+  pub sensor_type: String,
   pub channel: u64,
   pub computer: String,
   pub min: Option<f64>,
   pub max: Option<f64>,
-  pub connected_threshold: Option<f64>,
   pub powered_threshold: Option<f64>,
   pub normally_closed: Option<bool>
 }

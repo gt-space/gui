@@ -31,6 +31,8 @@ export default defineConfig({
         sensors: resolve(__dirname, 'sensors.html'),
         valves: resolve(__dirname, 'valves.html'),
         plotter: resolve(__dirname, 'plotter.html'),
+        sequences: resolve(__dirname, 'sequences.html'),
+        avi: resolve(__dirname, 'avi.html')
       }
     }
   },
