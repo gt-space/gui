@@ -21,8 +21,8 @@ async function createSensorsWindow() {
     fullscreen: false,
     title: 'Sensors',
     decorations: false,
-    height: 600,
-    width: 450,
+    height: 660,
+    width: 600,
   })
 }
 
@@ -33,7 +33,18 @@ async function createValvesWindow() {
     title: 'Valves',
     decorations: false,
     height: 660,
-    width: 540,
+    width: 600,
+  })
+}
+
+async function createAVIWindow() {
+  const webview = new WebviewWindow('AVI', {
+    url: 'avi.html',
+    fullscreen: false,
+    title: 'AVI',
+    decorations: false,
+    height: 600,
+    width: 400,
   })
 }
 
@@ -45,6 +56,17 @@ async function createPlotterWindow() {
     decorations: false,
     height: 600,
     width: 960,
+  })
+}
+
+async function createSequencesWindow() {
+  const webview = new WebviewWindow('sequences', {
+    url: 'sequences.html',
+    fullscreen: false,
+    title: 'Sequences',
+    decorations: false,
+    height: 600,
+    width: 500,
   })
 }
 
@@ -95,7 +117,10 @@ const MenuBar: Component = (props) => {
           <div class="dropdown-item" onClick={() => createValvesWindow()}>
             Valves
           </div>
-          <div class="dropdown-item">
+          <div class="dropdown-item" onClick={() => createSequencesWindow()}>
+            Sequences
+          </div>
+          <div class="dropdown-item" onClick={() => createAVIWindow()}>
             AVI
           </div>
           <div class="dropdown-item">
